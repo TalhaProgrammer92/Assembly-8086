@@ -66,6 +66,13 @@
         CMP char, 'u'
         JE VWL          ; True-case
         JMP CNT         ; False-case, As: jump [label]
+        
+        ; Block
+        VWL:
+            SHOW vowel
+            TERMINATE
+        CNT:
+            SHOW consonant
     RESULT ENDM
 
 .CODE
@@ -77,13 +84,6 @@
         SHOW msg
         GET
         RESULT
-        
-        ; Block
-        VWL:
-            SHOW vowel
-            TERMINATE
-        CNT:
-            SHOW consonant
         
         ; Termination
         TERMINATE
