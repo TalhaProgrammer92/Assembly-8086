@@ -1,4 +1,4 @@
-; Programt to check whether an input character is vowel or consonant
+; Program to check whether an input character is a vowel or a consonant.
 
 .MODEL SMALL
 
