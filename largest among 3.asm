@@ -5,9 +5,9 @@
 .STACK 100H
 
 .DATA
-    A DW 5
-    B DW 7
-    C DW 4
+    A DW 52
+    B DW 71
+    C DW 94
     
     MSG1 DB 'A is largest$'
     MSG2 DB 'B is largest$'
@@ -54,7 +54,7 @@
         CMPB:   ; Compare B with C
             CMP AX, C
             JG PRTB
-            JMP CMPC
+            JMP BCMPC
 
         PRTB:   ; Print B
             PRINT MSG2
@@ -72,9 +72,8 @@
             JG PRTC
             JMP EXIT
 
-        PRTC:   ; Compare C
+        PRTC:   ; Print C
             PRINT MSG3
-            JMP EXIT
 
         ; Program termination
         EXIT:
