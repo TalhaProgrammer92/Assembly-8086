@@ -5,7 +5,7 @@
 .STACK 100H
 
 .DATA
-    number DW 65535    ; Decimal number - Limit 16 bit (0 to 65536)
+    number DW 35    ; Decimal number - Limit 16 bit (0 to 65536)
 
 .CODE
     MAIN PROC FAR
