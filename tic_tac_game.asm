@@ -79,6 +79,31 @@
                 JNE DISP_LOOP
         ENDL
     DISPLAY ENDM
+
+    ; Place symbol
+    ASSIGN MACRO
+        MOV SI, 0
+        
+        MOV CL, location
+        SUB CL, 49
+        ASSIGN_INDEX_LOOP:
+            CMP CL, 0
+            JE ASSIGN_CHECK
+            INC SI
+            DEC CL
+            JMP ASSIGN_INDEX_LOOP
+        
+        ASSIGN_CHECK:
+            MOV AL, location
+            CMP board[SI], AL    
+            JE ASSIGN_CONFIRM
+            JMP CHECK
+        
+        ASSIGN_CONFIRM:
+            MOV AL, symbol
+            MOV board[SI], AL
+            JMP CHECK
+    ASSIGN ENDM
     
     ; Announce Winner / Draw
     ANNOUNCE MACRO
@@ -167,71 +192,7 @@
                 
             ; Place symbol
             PLACE:
-                CMP location, '1'
-                JE P_1
-                CMP location, '2'
-                JE P_2
-                CMP location, '3'
-                JE P_3
-                CMP location, '4'
-                JE P_4
-                CMP location, '5'
-                JE P_5
-                CMP location, '6'
-                JE P_6
-                CMP location, '7'
-                JE P_7
-                CMP location, '8'
-                JE P_8
-                CMP location, '9'
-                JE P_9
-                JMP CHECK
-                
-                P_1:
-                    MOV SI, 0
-                    JMP P_CHK
-                
-                P_2:
-                    MOV SI, 1
-                    JMP P_CHK
-                
-                P_3:
-                    MOV SI, 2
-                    JMP P_CHK
-                
-                P_4:
-                    MOV SI, 3
-                    JMP P_CHK
-                
-                P_5:
-                    MOV SI, 4
-                    JMP P_CHK
-                
-                P_6:
-                    MOV SI, 5
-                    JMP P_CHK
-                
-                P_7:
-                    MOV SI, 6
-                    JMP P_CHK
-                
-                P_8:
-                    MOV SI, 7
-                    JMP P_CHK
-                
-                P_9:
-                    MOV SI, 8
-                    JMP P_CHK
-                
-                P_CHK:
-                    MOV AL, location
-                    CMP board[SI], AL
-                    JE P_OK
-                    JMP CHECK
-                
-                P_OK:
-                    MOV AL, symbol
-                    MOV board[SI], AL
+                ASSIGN
             
             ; Check winner
             CHECK:
