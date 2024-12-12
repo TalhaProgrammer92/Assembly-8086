@@ -185,7 +185,7 @@
                 JE P_8
                 CMP location, '9'
                 JE P_9
-                
+                JMP CHECK
                 
                 P_1:
                     MOV SI, 0
