@@ -162,7 +162,8 @@
                 MOV AH, 01H
                 INT 21H
                 MOV location, AL
-                ENDL
+                CMP location, '0'
+                JE CHECK
                 
             ; Place symbol
             PLACE:
@@ -184,100 +185,57 @@
                 JE P_8
                 CMP location, '9'
                 JE P_9
-                JMP CHECK
+                
                 
                 P_1:
-                    CMP board[0], '1'
-                    JE P1_OK
-                    JMP CHECK
-                    
-                    P1_OK:
-                        MOV AL, symbol
-                        MOV board[0], AL
-                        JMP CHECK
+                    MOV SI, 0
+                    JMP P_CHK
                 
                 P_2:
-                    CMP board[1], '2'
-                    JE P2_OK
-                    JMP CHECK
-                    
-                    P2_OK:
-                        MOV AL, symbol
-                        MOV board[1], AL
-                        JMP CHECK
+                    MOV SI, 1
+                    JMP P_CHK
                 
                 P_3:
-                    CMP board[2], '3'
-                    JE P3_OK
-                    JMP CHECK
-                    
-                    P3_OK:
-                        MOV AL, symbol
-                        MOV board[2], AL
-                        JMP CHECK
+                    MOV SI, 2
+                    JMP P_CHK
                 
                 P_4:
-                    CMP board[3], '4'
-                    JE P4_OK
-                    JMP CHECK
-                    
-                    P4_OK:
-                        MOV AL, symbol
-                        MOV board[3], AL
-                        JMP CHECK
+                    MOV SI, 3
+                    JMP P_CHK
                 
                 P_5:
-                    CMP board[4], '5'
-                    JE P5_OK
-                    JMP CHECK
-                    
-                    P5_OK:
-                        MOV AL, symbol
-                        MOV board[4], AL
-                        JMP CHECK
+                    MOV SI, 4
+                    JMP P_CHK
                 
                 P_6:
-                    CMP board[5], '6'
-                    JE P6_OK
-                    JMP CHECK
-                    
-                    P6_OK:
-                        MOV AL, symbol
-                        MOV board[5], AL
-                        JMP CHECK
-                        
+                    MOV SI, 5
+                    JMP P_CHK
+                
                 P_7:
-                    CMP board[6], '7'
-                    JE P7_OK
-                    JMP CHECK
-                    
-                    P7_OK:
-                        MOV AL, symbol
-                        MOV board[6], AL
-                        JMP CHECK
-                        
+                    MOV SI, 6
+                    JMP P_CHK
+                
                 P_8:
-                    CMP board[7], '8'
-                    JE P8_OK
-                    JMP CHECK
-                    
-                    P8_OK:
-                        MOV AL, symbol
-                        MOV board[7], AL
-                        JMP CHECK
+                    MOV SI, 7
+                    JMP P_CHK
                 
                 P_9:
-                    CMP board[8], '9'
-                    JE P9_OK
+                    MOV SI, 8
+                    JMP P_CHK
+                
+                P_CHK:
+                    MOV AL, location
+                    CMP board[SI], AL
+                    JE P_OK
                     JMP CHECK
-                    
-                    P9_OK:
-                        MOV AL, symbol
-                        MOV board[8], AL
-                        JMP CHECK
+                
+                P_OK:
+                    MOV AL, symbol
+                    MOV board[SI], AL
             
             ; Check winner
             CHECK:
+                ENDL
                 
                 ; Row Check
                 MOV SI, 0
