@@ -191,8 +191,7 @@
                 JE CHECK
                 
             ; Place symbol
-            PLACE:
-                ASSIGN
+            ASSIGN
             
             ; Check winner
             CHECK:
