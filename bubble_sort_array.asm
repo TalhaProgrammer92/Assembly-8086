@@ -28,7 +28,7 @@
             INNER:
                 MOV DX, array[SI]               ; DX = array[SI]
                 CMP DX, array[SI + 2]           ; Compare DX with array[SI + 2] | array[SI + 2] is the value located after array[SI]
-                JL SKIP                         ; IF DX < array[SI + 2] THEN GOTO SKIP
+                JLE SKIP                        ; IF DX <= array[SI + 2] THEN GOTO SKIP
                 
                 ; Swap
                 MOV temp, DX                    ; temp = DX | DX is array[SI]
