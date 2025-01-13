@@ -5,9 +5,9 @@
 .STACK 100H
 
 .DATA
-    array DW 4, 2, 5, 1, 3, 8, 9, 7, 6      ; The array
-    size DW 9                               ; The size of the array
-    temp DW ?                               ; To temporary store a number
+    array DW 4, 2, 5, 1, 3, 8, 9, 7, 6      ; Array to be sorted
+    size DW 9                               ; Size of the array
+    temp DW ?                               ; To temporarily store a number for swapping
 
 .CODE
     MAIN PROC FAR
@@ -28,7 +28,7 @@
             INNER:
                 MOV DX, array[SI]               ; DX = array[SI]
                 CMP DX, array[SI + 2]           ; Compare DX with array[SI + 2] | array[SI + 2] is the value located after array[SI]
-                JLE SKIP                        ; IF DX <= array[SI + 2] THEN GOTO SKIP
+                JL SKIP                         ; IF DX < array[SI + 2] THEN GOTO SKIP
                 
                 ; Swap
                 MOV temp, DX                    ; temp = DX | DX is array[SI]
@@ -43,17 +43,17 @@
                     ; Control - Inner
                     ADD SI, 2                   ; SI += 2   | SI is the index of the given array
                     INC BX                      ; BX++      | BX is the inner loop counter
-                    MOV DX, size                ; DX = size | size is the total size of the given array
-                    SUB DX, CX                  ; DX -= CX  | CX is the outer loop counter
-                    DEC DX                      ; DX--
+                    MOV DX, size                ; DX = size | Total size of the given array     )---|
+                    SUB DX, CX                  ; DX -= CX  | CX is the outer loop counter          |--( Is BX < (size - CX)-- ? )
+                    DEC DX                      ; DX--                                          )---|
                     CMP BX, DX                  ; Compare BX with DX
                     JL INNER                    ; IF BX < DX THEN GOTO INNER
         
             ; Control - Outer
             INC CX              ; CX is the outer loop counter
-            MOV DX, size        ; DX = size
-            DEC DX              ; DX--
-            CMP CX, DX          ; Compare CX with DX
+            MOV DX, size        ; DX = size                     )---|
+            DEC DX              ; DX--                              |--( Is Cx < size-- ? )
+            CMP CX, DX          ; Compare CX with DX            )---|
             JL OUTER            ; IF CX < DX THEN GOTO INNER
         
         ;;;;;;;;;;;;;;;;;;;;;;;
