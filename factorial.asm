@@ -72,12 +72,12 @@
         
         MOV CX, num
         CALC_LOOP:
-            MOV AX, num
-            SUB AX, CX
-            INC AX
-            MOV BX, fact
-            MUL BX
-            MOV fact, AX            
+            MOV AX, num         ; AX = num
+            SUB AX, CX          ; AX -= CX
+            INC AX              ; AX++
+            MOV BX, fact        ; BX = fact
+            MUL BX              ; AX *= BX
+            MOV fact, AX        ; fact = AX
             LOOP CALC_LOOP
         
         
