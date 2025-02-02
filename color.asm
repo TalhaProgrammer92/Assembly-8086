@@ -55,7 +55,7 @@ END MAIN
 ; 8: Dark Gray
 ; 9: Light Blue
 ; A: Light Green
-: B: Light Cyan
+; B: Light Cyan
 ; C: Light Red
 ; D: Light Magenta
 ; E: Yellow
