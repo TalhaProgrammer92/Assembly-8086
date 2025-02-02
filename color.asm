@@ -27,3 +27,38 @@ MAIN PROC FAR
 MAIN ENDP
 
 END MAIN
+
+;;;;;;;;;;;;;;; Color Codes ;;;;;;;;;;;;;;;
+
+; Background Colors (0-7)
+
+; 0: Black
+; 1: Blue
+; 2: Green
+; 3: Cyan
+; 4: Red
+; 5: Magenta
+; 6: Brown
+; 7: Light Gray
+
+
+; Foreground Colors (0-15)
+
+; 0: Black
+; 1: Blue
+; 2: Green
+; 3: Cyan
+; 4: Red
+; 5: Magenta
+; 6: Brown
+; 7: Light Gray
+; 8: Dark Gray
+; 9: Light Blue
+; A: Light Green
+: B: Light Cyan
+; C: Light Red
+; D: Light Magenta
+; E: Yellow
+; F: White
+
+; # Example: 1Eh: Yellow on Blue
