@@ -55,8 +55,16 @@
         PRINTC 0AH
     ENDL ENDM
     
+    ; Clear Screen
+    CLEAR MACRO
+        MOV AH, 00H
+        MOV AL, 03H
+        INT 10H
+    CLEAR ENDM
+    
     ; Display game board
     DISPLAY MACRO
+        CLEAR   ; Clear the console screen
         MOV SI, 0
         DISP_LOOP:
             PRINTC ' '
@@ -107,8 +115,7 @@
     
     ; Announce Winner / Draw
     ANNOUNCE MACRO
-        
-        ENDL
+        CLEAR   ; Clear the console screen
         
         ; Display the board
         MOV SI, 0
