@@ -12,7 +12,7 @@ This repository serves as a personal archive of Assembly language programs I cre
 
 Here's a list of types of programs included in this repository:
 
-* **Normal I/O:** These programs contain basic input and output operations like taking a character/string as input and also display them.
+* **Basic I/O:** These programs contain basic input and output operations like taking a character/string as input and also display them.
 * **Conditional:** These programs contain logical algorithms to solve basic problems like prime numbers, even odd, palindrome, reverse string, etc.
 * **Complex:** These programs are more complex than conditional programs. These programs include a game, yes! Tic Tac game, and much more.
 - - -
