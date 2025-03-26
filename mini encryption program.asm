@@ -6,7 +6,6 @@
 
 .DATA
     text DB 50 DUP('$')
-    shift DB ?
     msg_prompt_text DB 'Enter Text: $'
     msg_prompt_shift DB 'Enter Shift: $'
     msg_result DB 'Caeser Cipher: $'
