@@ -16,7 +16,7 @@
     
     ; To check initial position of pawns
     upper_pawn_initial_positions DB 8, 9, 10, 11, 12, 13, 14, 15
-    lower_pawn_initial_positions DB 47, 48, 49, 50, 51, 52, 53, 54
+    lower_pawn_initial_positions DB 48, 49, 50, 51, 52, 53, 54, 55
     
     ; To simplify Game Logic & Increase performance => 0 (Player 1) : 1 (Player 2)
     king_count DB 1, 1
