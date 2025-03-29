@@ -38,6 +38,7 @@
     display_piece_selection DB 'Select Piece!$'
     display_no_piece_found DB 'No piece found at your selected position!!$'
     display_not_movable DB 'The selected piece is not movable!!$'
+    display_incorrect_value DB 'The value you entered is incorrect. It must be between 1 and 8!!$'
     
     display_destination_selection DB 'Select destination of your selected piece!$'
     display_invalid_destination DB 'Illegal destination/move! Please select correct one$'
@@ -277,16 +278,32 @@
         MOV CX, 2
         MOV SI, 0
         PIECE_SELECTION_LOOP:
-            ; Display prompt
-            PRINTS prompt_input_index
+            IP_LOOP:
+                ; Display prompt
+                PRINTS prompt_input_index
                 
-            ; Take number input
-            INPUTN piece_position[SI]
-            LINE_BREAK
+                ; Take number input
+                INPUTN piece_position[SI]
+                LINE_BREAK
+                
+                ; Check if input is valid
+                MOV AL, piece_position[SI]
+                CALL CHECK_VALUE_VALIDITY
+                
+                ; If not valid
+                CMP is_valid, 0
+                JE IPL_MSG
+                JMP PSL_CONTROL
+                
+                IPL_MSG:
+                    PRINTS display_incorrect_value
+                    LINE_BREAK
+                    JMP IP_LOOP
                 
             ; Loop - Control
-            INC SI
-            LOOP PIECE_SELECTION_LOOP
+            PSL_CONTROL:
+                INC SI
+                LOOP PIECE_SELECTION_LOOP
         RET
     INPUT_POSITIONS ENDP    
     
@@ -311,6 +328,25 @@
         
         RET
     CALCULATE_INDEX ENDP
+    
+    ; Check if user input is valid 1-8 | value should be in AL
+    CHECK_VALUE_VALIDITY PROC                                                    
+        MOV is_valid, 0     ; Default is 0 - False
+        CMP AL, 0
+        JGE CLV_IN_RANGE
+        JMP CLV_EXIT
+        
+        CLV_IN_RANGE:
+            CMP AL, 8
+            JLE CLV_CONFIRM
+            JMP CLV_EXIT
+        
+        CLV_CONFIRM:
+            MOV is_valid, 1 ; 1 - True
+        
+        CLV_EXIT:
+            RET
+    CHECK_VALUE_VALIDITY ENDP
     
     ; Check if a piece exists at specific position
     CHECK_PIECE_EXIST PROC
