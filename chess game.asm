@@ -16,7 +16,11 @@
     
     ; To check initial position of pawns
     upper_pawn_initial_positions DB 8, 9, 10, 11, 12, 13, 14, 15
-    lower_pawn_initial_positions DB 48, 49, 50, 51, 52, 53, 54, 55
+    lower_pawn_initial_positions DB 47, 48, 49, 50, 51, 52, 53, 54
+    
+    ; To validate piece selection
+    upper_chess_piece DB 'K', 'B', 'Q', 'N', 'R', 'P'
+    lower_chess_piece DB 'k', 'b', 'q', 'n', 'r', 'p'
     
     ; To simplify Game Logic & Increase performance => 0 (Player 1) : 1 (Player 2)
     king_count DB 1, 1
@@ -155,7 +159,7 @@
             CALL DISPLAY_TURN_MSG
             
             ; Take positions from user
-            INNPUT_POSITION_LOOP:
+            INPUT_POSITION_LOOP:
                 CALL INPUT_POSITIONS
              
                 ; Calculate index according to user input (piece position) 
@@ -180,7 +184,7 @@
                 IPL_NOT_VALID:
                     PRINTS display_no_piece_found
                     LINE_BREAK
-                    JMP INNPUT_POSITION_LOOP
+                    JMP INPUT_POSITION_LOOP
             
             ; Check if piece movable
             MOVABLE_VALIDITY_CHECK:
@@ -190,6 +194,10 @@
              
             ; Update turn
             CALL UPDATE_TURN
+            
+            ; Loop untill game is over
+            ;CMP game_over, 0
+            ;JE GAME_LOOP
              
         ; Program Termination
         EXIT:
@@ -363,6 +371,55 @@
         CP_EXIT:
             RET
     CHECK_PIECE_EXIST ENDP
+    
+    ; Check if player selected correct piece according to turn
+    CHECK_PIECE_SELECTION_VALIDATITY PROC
+        ; Type of chess pieces
+        MOV CX, 6
+        
+        ; Check turn
+        CMP turn, 0
+        JE CPSV_UPPER   ; Turn = 0 (Player 1)
+        JMP CPSV_LOWER  ; Turn = 1 (Player 2)
+        
+        ; If selected piece is valid
+        CPSV_VALID:
+            MOV is_valid, 1
+            JMP CPSV_EXIT
+        
+        ; For Player 1
+        CPSV_UPPER:
+            ; Check piece
+            MOV SI, CX
+            DEC SI
+            MOV AL, upper_chess_piece[SI]
+            CMP AL, piece
+            JE CPSV_VALID
+            
+            ; Loop Control
+            LOOP CPSV_UPPER
+            
+            ; To exit
+            JMP CPSV_EXIT
+        
+        ; For Player 2
+        CPSV_LOWER:
+            ; Check piece
+            MOV SI, CX
+            DEC SI
+            MOV AL, lower_chess_piece[SI]
+            CMP AL, piece
+            JE CPSV_VALID
+            
+            ; Loop Control
+            LOOP CPSV_LOWER
+            
+            ; To exit
+            JMP CPSV_EXIT
+        
+        CPSV_EXIT:
+            RET
+    CHECK_PIECE_SELECTION_VALIDATITY ENDP
     
     ; Check if pawn (small) movable
     CHECK_IF_MOVABLE_PAWN PROC
