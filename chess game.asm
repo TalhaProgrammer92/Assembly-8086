@@ -19,8 +19,8 @@
     lower_pawn_initial_positions DB 47, 48, 49, 50, 51, 52, 53, 54
     
     ; To validate piece selection
-    upper_chess_piece DB 'K', 'B', 'Q', 'N', 'R', 'P'
-    lower_chess_piece DB 'k', 'b', 'q', 'n', 'r', 'p'
+    upper_chess_piece DB 'KBQNRP$'
+    lower_chess_piece DB 'kbqnrp$'
     
     ; To simplify Game Logic & Increase performance => 0 (Player 1) : 1 (Player 2)
     king_count DB 1, 1
@@ -41,18 +41,20 @@
     
     display_piece_selection DB 'Select Piece!$'
     display_no_piece_found DB 'No piece found at your selected position!!$'
-    display_not_movable DB 'The selected piece is not movable!!$'
+    display_invalid_piece_wrt_turn DB 'you have selected your opponent piece which is not valid!!$'
     display_incorrect_value DB 'The value you entered is incorrect. It must be between 1 and 8!!$'
+    display_piece_not_movable DB 'The selected piece is not movable!!$'
     
     display_destination_selection DB 'Select destination of your selected piece!$'
     display_invalid_destination DB 'Illegal destination/move! Please select correct one$'
     
+    display_capture DB 'You have captured your opponent piece!!$'
     display_check DB 'It is a Check!$'
     display_checkmate DB 'It is a Checkmate!$'
     
     display_winner DB 'Winner is Player $'
     
-    ; Game Status Flags
+    ; Game Status Flags | 0: False, 1:True
     game_over DB 0
     turn DB 0
     can_castle DB 0
@@ -158,7 +160,9 @@
             ; Display player's turn
             CALL DISPLAY_TURN_MSG
             
-            ; Take positions from user
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+            ; Take positions from user    
+            ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
             INPUT_POSITION_LOOP:
                 CALL INPUT_POSITIONS
              
@@ -179,18 +183,30 @@
                 
                 ; if valid
                 GET_PIECE
-                JMP MOVABLE_VALIDITY_CHECK
+                JMP TURN_VALIDITY_CHECK
                 
                 IPL_NOT_VALID:
                     PRINTS display_no_piece_found
                     LINE_BREAK
                     JMP INPUT_POSITION_LOOP
             
-            ; Check if piece movable
-            MOVABLE_VALIDITY_CHECK:
-                ; debugging purpose
-                LINE_BREAK
-                PRINTC piece
+            
+                ; Check if piece selection is crrect w.r.t turn
+                TURN_VALIDITY_CHECK:
+                    LINE_BREAK
+                    PRINTC piece
+                    
+                    ; Check turn validity
+                    CALL CHECK_TURN_VALIDITY
+                    CMP is_valid, 1
+                    JE MOVABLE_VALIDATION_CHECK
+                    
+                    LINE_BREAK
+                    PRINTS display_invalid_piece_wrt_turn
+                    JMP INPUT_POSITION_LOOP
+                    
+                MOVABLE_VALIDATION_CHECK:
+                    
              
             ; Update turn
             CALL UPDATE_TURN
@@ -372,8 +388,60 @@
             RET
     CHECK_PIECE_EXIST ENDP
     
+    ; Check turn validation i.e. if the selected piece is not opponent's one
+    CHECK_TURN_vALIDITY PROC
+        ; Clear Memory location
+        MOV is_valid, 0
+        MOV CX, 6       ; Size of the chess pieces string
+        CMP turn, 0     ; Check turn
+        JE CTV_UPPER    ; Player 1's turn
+        JMP CTV_LOWER   ; Player 2's turn
+        
+        ; If selected piece is valid
+        CTV_VALID:
+            MOV is_valid, 1
+            JMP CTV_EXIT 
+        
+        ; Player 1 check 
+        CTV_UPPER:
+            ; Mov Cx -> SI for source index
+            MOV SI, CX
+            DEC SI
+            
+            ; Check piece validity
+            MOV AL, upper_chess_piece[SI]
+            CMP AL, piece
+            JE CTV_VALID
+            
+            ; Loop control
+            LOOP CTV_UPPER
+            
+            ; Exit
+            JMP CTV_EXIT
+        
+        ; Player 2 check
+        CTV_LOWER:
+            ; Mov Cx -> SI for source index
+            MOV SI, CX
+            DEC SI
+            
+            ; Check piece validity
+            MOV AL, lower_chess_piece[SI]
+            CMP AL, piece
+            JE CTV_VALID
+            
+            ; Loop control
+            LOOP CTV_LOWER
+        
+        CTV_EXIT:
+            RET
+    CHECK_TURN_vALIDITY ENDP
+    
     ; Check if player selected correct piece according to turn
-    CHECK_PIECE_SELECTION_VALIDATITY PROC
+    CHECK_PIECE_SELECTION_VALIDITY PROC
+        ; Clear memory location
+        MOV is_valid, 0
+        
         ; Type of chess pieces
         MOV CX, 6
         
@@ -419,7 +487,7 @@
         
         CPSV_EXIT:
             RET
-    CHECK_PIECE_SELECTION_VALIDATITY ENDP
+    CHECK_PIECE_SELECTION_VALIDITY ENDP
     
     ; Check if pawn (small) movable
     CHECK_IF_MOVABLE_PAWN PROC
