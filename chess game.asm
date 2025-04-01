@@ -11,6 +11,7 @@
     
     ; Board variables
     board DB 'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R', 'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.','.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', '.', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p', 'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'
+    separator_line DB ' ---------------------------------$'
     size DB 64
     row_size DB 8
     
@@ -221,9 +222,18 @@
         INT 21H
     MAIN ENDP
     
+    ; Show board separator line
+    DISPLAY_SEPARATOR_LINE PROC
+        PRINTS SEPARATOR_LINE
+        LINE_BREAK
+        
+        RET
+    DISPLAY_SEPARATOR_LINE ENDP
+    
     ; Display Game Board
     DISPLAY_BOARD PROC
         ; Numbers Strip - Columns
+        PRINTC ' '
         PRINTC ' '
         PRINTC ' '
         MOV CX, 8
@@ -234,8 +244,12 @@
             INT 21H
             INC BL
             PRINTC ' '
+            PRINTC ' '
+            PRINTC ' '
             LOOP DISPB_NSC
         LINE_BREAK
+        
+        CALL DISPLAY_SEPARATOR_LINE
         
         ; Number Strip + Board
         MOV BL, '1'
@@ -245,6 +259,7 @@
             MOV DL, BL
             MOV AH, 02H
             INT 21H
+            PRINTC '|'
             PRINTC ' '
             
             ; count board columns
@@ -254,6 +269,8 @@
             DISPB_LOOP:
                 ; Display board character
                 PRINTC board[SI]
+                PRINTC ' '
+                PRINTC '|'
                 PRINTC ' '
                 
                 ; Increment board columns counter
@@ -266,8 +283,11 @@
                 CMP BH, 8
                 JL DISPB_LOOP
             
-            ; Loop Control - Numbers Strip Rows
+            ; Separator line
             LINE_BREAK
+            CALL DISPLAY_SEPARATOR_LINE
+            
+            ; Loop Control - Numbers Strip Rows
             INC BL
             CMP BL, '8'
             JLE DISPB_NSR
