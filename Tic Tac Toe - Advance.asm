@@ -22,7 +22,7 @@
     msg_draw DB 'Game is Draw$'     ; When display draw messsage
     
     alert_invalid_cell DB 'Cell number must be between 1 and 9!$'                                   ; When player enter invalid cell number for game board
-    alert_invalid_symbol DB 'You must select upper case alphabet between A and Z as symbol!$'       ; When player enter invalid symbol like 1 [
+    alert_invalid_symbol DB 'You must select upper case alphabet between A and Z as symbol!$'       ; When player enter invalid symbol like 1, [
     alert_existed_symbol DB 'The symbol you selected has already been taken by your opponent!$'     ; When player enter symbol which is already taken
     
     ; Board
@@ -32,7 +32,8 @@
     
     ; In-game (Flags: 1-True, 0-False)
     game_over DB 0  ; Game Over
-    turn DW 0       ; Player's turn
+    turn DB 0       ; Player's turn
+    valid DB ?      ; Check validity
     
     ; In-game (Variables)
     winner DB ?     ; Winner
@@ -58,6 +59,12 @@
         INT 21H
     PRINTS ENDM
     
+    ; Hold Screen
+    HOLD MACRO
+        MOV AH, 08H
+        INT 21H
+    HOLD ENDM
+    
     ; Line Break
     LINE_BREAK MACRO
         PRINTC 0DH
@@ -69,13 +76,15 @@
         MOV AH, 01H
         INT 21H
         
-        DEC AL, '0'
+        SUB AL, '0'
+        MOV var, AL
     INPUTN ENDM
     
     ; Take Input (Character)
     INPUTC MACRO var
         MOV AH, 01H
         INT 21H
+        MOV var, AL
     INPUTC ENDM
     
     ; Update turn
@@ -102,7 +111,9 @@
         MOV AX, @DATA
         MOV DS, AX               
         
-        CALL START_GAME
+        ;CALL START_GAME
+        CALL RESET_BOARD
+        CALL DISPLAY_BOARD
         
         ; Program Termination
         MOV AH, 4CH
@@ -138,7 +149,7 @@
         JE COMPUTER
             
         ; Exit
-        JMP WS_EXIT
+        CALL WELCOME_SCREEN
         
         ; Multiplayer Game
         MULTIPLAYER:
@@ -155,25 +166,136 @@
     
     ; Symbol Selection
     SYMBOL_SELECTION PROC
-        MOV SI, 1
-        SS_LOOP:
+        ; Symbol Input - player 1
+        SS_PR1:
             ; Prompt
             PRINTS prompt_symbol
-            INPUTC
+            INPUTC player_symbol[0]
             
-            ; Store Input
-            MOV player_symbol[SI], AL
-            INC SI
+            CALL CHECK_UPPER_CHAR       ; Check if symbol is upper-case
+            CMP valid, 0
+            JE SS_INVALID1
+            JMP SS_PR2
             
+            SS_INVALID1:
+                LINE_BREAK
+                PRINTS alert_invalid_symbol
+                LINE_BREAK
+                
+                JMP SS_PR1
+        
+        ; Symbol Input - player 2
+        SS_PR2:
+        
             ; Line break
             LINE_BREAK
             
-            ; Loop Control
-            CMP SI, 0
-            JLE SS_LOOP
+            ; Prompt
+            PRINTS prompt_symbol
+            INPUTC player_symbol[1]
+            
+            CMP AL, player_symbol[0]    ; If symbols of player 1 & 2 are same
+            JE SS_SAME
+            
+            CALL CHECK_UPPER_CHAR       ; Check if symbol is upper-case
+            CMP valid, 0
+            JE SS_INVALID2
+            
+            JMP SS_EXIT
+            
+            SS_SAME:
+                LINE_BREAK
+                PRINTS alert_existed_symbol
+                LINE_BREAK
+                
+                JMP SS_PR2
+            
+            SS_INVALID2:
+                LINE_BREAK
+                PRINTS alert_invalid_symbol
+                LINE_BREAK
+                
+                JMP SS_PR2
+        
+        SS_EXIT:
+            RET
+    SYMBOL_SELECTION ENDP
+    
+    ; Check if a charater (AL) is in upper-case
+    CHECK_UPPER_CHAR PROC
+        MOV valid, 0
+        
+        CMP AL, 'A'
+        JAE CUC_NEXT
+        JMP CUC_EXIT
+        
+        CUC_NEXT:
+            CMP AL, 'Z'
+            JBE CUC_CONFIRM
+            JMP CUC_EXIT
+        
+        CUC_CONFIRM:
+            MOV valid, 1
+        
+        CUC_EXIT:
+            RET
+    CHECK_UPPER_CHAR ENDP
+    
+    ; Reset Board - Contains bug
+    RESET_BOARD PROC
+        MOV SI, 0
+        MOV AL, '0'
+        RB_LOOP:
+            MOV board[SI], AL
+            
+            INC AL
+            
+            INC SI
+            CMP SI, 9
+            JL RB_LOOP
         
         RET
-    SYMBOL_SELECTION ENDP
+    RESET_BOARD ENDP
+    
+    ; Display Board
+    DISPLAY_BOARD PROC
+        MOV SI, 0
+        MOV CL, 0
+        DB_OUTER:
+            MOV BL, 0
+            DB_INNER:
+                PRINTC ' '
+                PRINTC board[SI]
+                PRINTC ' '
+                
+                CMP BL, 2
+                JB DBI_CS
+                JMP DBI_CONTROL
+                
+                DBI_CS:
+                    PRINTC col_sep
+                
+                DBI_CONTROL:
+                    INC BL
+                    CMP BL, 3
+                    JB DB_INNER
+           
+           LINE_BREAK
+           CMP CL, 2
+           JB DBO_RS
+           JMP DBO_CONTROL
+           
+           DBO_RS:
+                PRINTS row_sep
+                LINE_BREAK
+           
+           DBO_CONTROL:
+                INC CL
+                CMP CL, 3
+                JB DB_OUTER
+                
+        RET
+    DISPLAY_BOARD ENDP
     
     ; Multiplayer Game
     MULTIPLAYER_GAME PROC
@@ -181,13 +303,19 @@
         CALL SYMBOL_SELECTION
         CLRSCR
         
-        
+        ; Reset Board
+        CALL RESET_BOARD
+        CALL DISPLAY_BOARD
         
         RET
     MULTIPLAYER_GAME ENDP
     
     ; Computer Game
     COMPUTER_GAME PROC
+        ; Select Symbol
+        CALL SYMBOL_SELECTION
+        CLRSCR
+        
         RET
     COMPUTER_GAME ENDP
     
