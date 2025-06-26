@@ -6,8 +6,6 @@
 
 .DATA
     ; Variables/Arrays
-    ;array DB 2, 1, 5, 4, 3
-    ;array DB 4, 1, 5, 2, 3
     array DB 7, 2, 4, 3, 9, 8, 6, 5, 1, 0
     size DW 10
     
@@ -16,9 +14,7 @@
     num DB ?
     
     msg_sorting DB 'Sorting...$'
-    msg_array DB 'Array: $'   
-    msg_updated DB 'Updated Small!$'
-    msg_swapped DB 'Swapped!$'
+    msg_array DB 'Array: $'
     
     ;;;;;;;;;;;;;
     ; Macros     
@@ -38,15 +34,7 @@
         ADD DL, '0'
         INT 21H
     PRINTN ENDM
-    
-    ; Print number but in word
-    PRINTNW MACRO num
-        MOV AH, 02H
-        MOV DX, num
-        ADD DX, '0'
-        INT 21H
-    PRINTNW ENDM
-    
+
     ; Print character
     PRINTC MACRO chr
         MOV AH, 02H
@@ -73,38 +61,6 @@
         MOV AL, num
         MOV num2, AL
     SWAP ENDM
-    
-    ; Debug - Inner loop (Sort) | SI - Smallest (known) element index | BX - Current element index
-    DEBUG_INNER MACRO
-        PRINTN array[SI]
-        
-        PRINTC ' '     
-        
-        PRINTN array[BX]
-        
-        PRINTC ' '
-        
-        PRINTNW SI
-        
-        PRINTC ' '
-        
-        PRINTNW BX
-        
-        NEW_LINE
-    DEBUG_INNER ENDM
-    
-    ; Debug - Outer loop (Sort) | SI - Current element index | BX - Smallest (found) element index
-    DEBUG_OUTER MACRO
-        NEW_LINE
-        
-        PRINTNW SI
-        
-        PRINTC ' '
-        
-        PRINTNW BX
-        
-        NEW_LINE
-    DEBUG_OUTER ENDM
 
 .CODE
     ;;;;;;;;;;;;;;;;;
@@ -173,10 +129,7 @@
             INC BX
             SORT_INNER:
                 MOV SI, small   ; Get smallest element's index
-                
-                ; Debug      
-                ;DEBUG_INNER
-                
+
                 ; Check if array[SI] >= array[BX]
                 MOV AH, 0
                 MOV AL, array[SI]
@@ -185,8 +138,6 @@
                 
                 ; Update the small index
                 MOV small, BX
-                ;PRINTS msg_updated
-                ;NEW_LINE
                 
                 ; Loop Control - Inner
                 SI_CONTROL:
@@ -201,13 +152,8 @@
             ; Get smallest element index
             MOV BX, small
                                         
-            ; Debug
-            ;DEBUG_OUTER
-                                        
             ; Swap the elements         
             SWAP array[SI], array[BX]
-            ;PRINTS msg_swapped
-            ;NEW_LINE
                  
             ; Loop Control - Outer   
             INC SI
@@ -215,7 +161,6 @@
             DEC AX
             CMP SI, AX
             JL SORT_OUTER
-            
         
         RET
     SORT ENDP
