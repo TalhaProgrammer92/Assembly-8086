@@ -125,29 +125,11 @@
             PRINTC board[SI]
             
             ; Check for line break at SI: 7, 15, 23, 31, 39, 47, 55, 63
-            CMP SI, 7
+            MOV BX, SI
+            AND BX, 07H      ; check lower 3 bits
+            CMP BX, 07H
             JE DB_LINE_BREAK
-            
-            CMP SI, 15
-            JE DB_LINE_BREAK
-            
-            CMP SI, 23
-            JE DB_LINE_BREAK
-            
-            CMP SI, 31
-            JE DB_LINE_BREAK
-            
-            CMP SI, 39
-            JE DB_LINE_BREAK
-            
-            CMP SI, 47
-            JE DB_LINE_BREAK
-            
-            CMP SI, 55
-            JE DB_LINE_BREAK
-            
-            CMP SI, 63
-            JE DB_LINE_BREAK
+
             
             JMP DB_CONTROL
             
