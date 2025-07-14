@@ -184,5 +184,14 @@
         
         RET
     DISPLAY_BOARD ENDP
+    
+    ;;;;;;;;;;;;;;;;;;;;;;;
+    ; Piece Procedures     
+    ;;;;;;;;;;;;;;;;;;;;;;;
+    
+    ; Place all pieces to initial positions on board
+    PLACE_PIECES_INIT PROC
+        RET
+    PLACE_PIECES_INIT ENDP
 
 END MAIN
