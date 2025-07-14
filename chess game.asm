@@ -11,6 +11,8 @@
     
     ; Game Board
     board DB 64 DUP('$')
+    labels_alpha DB 'abcdefgh$'
+    labels_num DB '12345678$'
     
     ; Positions
     position DB ?, ?        ; Current (selected) piece position
@@ -39,6 +41,9 @@
     game_over DB 0  ; Keep track if game is over
     turn DW 0       ; Keep track of turn
     moves DB 0, 0   ; Keep track of number of moves made by players
+    
+    ; Misc
+    index DW ?  ; Hold index of an array/string if registers are full
     
     ;;;;;;;;;;;;;;;
     ; Messages     
@@ -119,19 +124,52 @@
     
     ; Display Board
     DISPLAY_BOARD PROC
+        ; Labels - a to h
+        PRINTC ' '
+        PRINTC ' '
         MOV SI, 0
+        DB_LABELS_LOOP:
+            ; Display labels
+            PRINTC labels_alpha[SI]
+            PRINTC ' '
+            
+            ; Control Loop
+            INC SI
+            CMP SI, 8
+            JB DB_LABELS_LOOP
+        
+        ; Break the line
+        LINE_BREAK
+        
+        ; Grid
+        MOV SI, 0
+        MOV index, 0
         DB_LOOP:
+            ; Check if SI at start of row
+            MOV BX, SI
+            DEC BX
+            AND BX, 07H
+            CMP BX, 07H
+            JNE DB_CELL
+            
+            ; Print the number label at index
+            MOV BX, index
+            PRINTC labels_num[BX]
+            PRINTC ' '
+            INC index
+        
             ; Print the character of board at SI
-            PRINTC board[SI]
+            DB_CELL:
+                PRINTC board[SI]
+                PRINTC ' '  ; Gap b/w each cell
             
             ; Check for line break at SI: 7, 15, 23, 31, 39, 47, 55, 63
             MOV BX, SI
-            AND BX, 07H      ; check lower 3 bits
+            AND BX, 07H      ; check lower 3 bits '111'
             CMP BX, 07H
             JE DB_LINE_BREAK
-
             
-            JMP DB_CONTROL
+            JMP DB_CONTROL  ; If no line break require
             
             ; Line Break to make board visually better
             DB_LINE_BREAK:
@@ -140,7 +178,8 @@
             ; Loop Control
             DB_CONTROL:
                 INC SI
-                CMP SI, 64
+                
+                CMP SI, 64  ; '64' is total grid area (no. of cells)
                 JB DB_LOOP
         
         RET
