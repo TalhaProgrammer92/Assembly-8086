@@ -82,6 +82,16 @@
         MOV AL, 03H
         INT 10H
     CLRSCR ENDM
+    
+    ;;;;;;;;;;;;;;;;;;;;;
+    ; Macros - Piece
+    ;;;;;;;;;;;;;;;;;;;;;
+    
+    ; Place piece - piece [Byte] | cell [Address]
+    PLACE_PIECE MACRO piece, cell
+        MOV AL, piece
+        MOV cell, AL
+    PLACE_PIECE ENDM
 
 .CODE
     ; Entry Point
@@ -94,7 +104,10 @@
         PRINTS msg_loading
         
         CALL CLEAN_BOARD
+        CALL PLACE_PIECES_INIT
+        
         CLRSCR
+        
         
         CALL DISPLAY_BOARD
         
@@ -191,6 +204,64 @@
     
     ; Place all pieces to initial positions on board
     PLACE_PIECES_INIT PROC
+        ; Pawn
+        MOV SI, 0
+        PPI_PAWN:
+            ; White
+            MOV BX, SI
+            ADD BX, 48  ; Start from 7th row
+            PLACE_PIECE pawn[0], board[BX]
+            
+            ; Black
+            MOV BX, SI
+            ADD BX, 8   ; Start from 2nd row
+            PLACE_PIECE pawn[1], board[BX]
+            
+            ; Loop Control
+            INC SI
+            CMP SI, 8
+            JB PPI_PAWN
+        
+        ; Rook - White
+        PLACE_PIECE rook[0], board[56]
+        PLACE_PIECE rook[0], board[63]
+        
+        ; Rood - Black
+        PLACE_PIECE rook[1], board[0]
+        PLACE_PIECE rook[1], board[7]
+        
+        
+        ; Knight - White
+        PLACE_PIECE knight[0], board[57]
+        PLACE_PIECE knight[0], board[62]
+        
+        ; Knight - Black
+        PLACE_PIECE knight[1], board[1]
+        PLACE_PIECE knight[1], board[6]
+        
+        
+        ; Bishop - White
+        PLACE_PIECE bishop[0], board[58]
+        PLACE_PIECE bishop[0], board[61]
+        
+        ; Bishop - Black
+        PLACE_PIECE bishop[1], board[2]
+        PLACE_PIECE bishop[1], board[5]
+        
+        
+        ; Queen - White
+        PLACE_PIECE queen[0], board[59]
+        
+        ; Queen - Black
+        PLACE_PIECE queen[1], board[3]
+                                     
+                                     
+        ; King - White
+        PLACE_PIECE king[0], board[60]
+        
+        ; King - Black
+        PLACE_PIECE king[1], board[4]
+        
         RET
     PLACE_PIECES_INIT ENDP
 
