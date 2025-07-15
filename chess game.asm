@@ -44,20 +44,24 @@
     moves DB 0, 0   ; Keep track of number of moves made by players
     
     ; Misc
+    input DB 2 DUP('$') ; Store player input
     index DW ?  ; Hold index of an array/string if registers are full
     
     ;;;;;;;;;;;;;;;
     ; Messages     
     ;;;;;;;;;;;;;;;
     
-    ; Misc
-    msg_loading DB 'Loading...$'
+    ; Prompt
+    prompt_selection DB 'Select a piece position: $'
+    prompt_destination DB 'Select cell to move piece: $'
     
+    ; Misc
+    msg_loading DB 'Loading! Please wait...$'
     msg_turn DB 'Turn of $'
     
-    ;;;;;;;;;;;;;;;;;;;;;;;
-    ; Macros - Display
-    ;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;
+    ; Macros - I/O
+    ;;;;;;;;;;;;;;;;;;;
     
     ; Print a character
     PRINTC MACRO chr
@@ -128,16 +132,18 @@
         MOV DS, AX
         
         ; Testing
-        PRINTS msg_loading
+        ;PRINTS msg_loading
         
-        CALL CLEAN_BOARD
-        CALL PLACE_PIECES_INIT
+        ;CALL CLEAN_BOARD
+        ;CALL PLACE_PIECES_INIT
         
-        CLRSCR
+        ;CLRSCR
         
-        CALL DISPLAY_BOARD
+        ;CALL DISPLAY_BOARD
         
         DISPLAY_TURN
+        
+        CALL TAKE_SELECTION_INPUT
         
         ; Terminate program execution
         MOV AH, 4CH
@@ -292,5 +298,44 @@
         
         RET
     PLACE_PIECES_INIT ENDP
+    
+    ;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Input Procedures
+    ;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    ; Take input
+    TAKE_INPUT PROC
+        MOV SI, 0
+        TI_LOOP:
+            ; Input
+            MOV AH, 01H
+            INT 21H
+            
+            ; Check for 'Enter' key
+            CMP AL, 13  ; If 'Enter' is pressed
+            JE TI_RET
+            
+            ; Move input character to 'input' memory location
+            MOV input[SI], AL
+            
+            ; Loop Control
+            INC SI
+            CMP SI, 2
+            JB TI_LOOP
+        
+        TI_RET:
+            RET
+    TAKE_INPUT ENDP
+    
+    ; Take selection input
+    TAKE_SELECTION_INPUT PROC
+        ; Display message
+        PRINTS prompt_selection
+        
+        ; Take input
+        CALL TAKE_INPUT
+        
+        RET
+    TAKE_SELECTION_INPUT ENDP
 
 END MAIN
