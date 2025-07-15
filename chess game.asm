@@ -19,8 +19,9 @@
     destination DB ?, ?     ; Current (selected) piece destination
     resultant DB ?, ?       ; Resultant position derived on basis of current position and destination
     
-    ; Players Score - P1, P2
+    ; Players - P1, P2
     player_score DB 0, 0
+    player_name DB 'White$', 'Black$'
     
     ; In-game flags - 0: False | 1: True - P1, P2
     checkmate_flag DB 0, 0  ; Is checkmate
@@ -51,6 +52,8 @@
     
     ; Misc
     msg_loading DB 'Loading...$'
+    
+    msg_turn DB 'Turn of $'
     
     ;;;;;;;;;;;;;;;;;;;;;;;
     ; Macros - Display
@@ -83,6 +86,20 @@
         INT 10H
     CLRSCR ENDM
     
+    ; Display player's turn
+    DISPLAY_TURN MACRO
+        LINE_BREAK
+        
+        PRINTS msg_turn
+        
+        MOV SI, turn
+        PRINTS player_name[SI]
+        
+        PRINTC '!'
+        
+        LINE_BREAK
+    DISPLAT_TURN ENDM
+    
     ;;;;;;;;;;;;;;;;;;;;;
     ; Macros - Piece
     ;;;;;;;;;;;;;;;;;;;;;
@@ -92,6 +109,16 @@
         MOV AL, piece
         MOV cell, AL
     PLACE_PIECE ENDM
+    
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Macros - Game Control     
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    ; Update game stat
+    UPDATE_GAME_STAT MACRO
+        XOR turn, 1
+        INC moves
+    UPDATE_GAME_STAT ENDM
 
 .CODE
     ; Entry Point
@@ -108,8 +135,9 @@
         
         CLRSCR
         
-        
         CALL DISPLAY_BOARD
+        
+        DISPLAY_TURN
         
         ; Terminate program execution
         MOV AH, 4CH
