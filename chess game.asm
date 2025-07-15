@@ -21,7 +21,8 @@
     
     ; Players - P1, P2
     player_score DB 0, 0
-    player_name DB 'White$', 'Black$'
+    player_white DB 'White$'
+    player_black DB 'Black$'
     
     ; In-game flags - 0: False | 1: True - P1, P2
     checkmate_flag DB 0, 0  ; Is checkmate
@@ -90,20 +91,6 @@
         INT 10H
     CLRSCR ENDM
     
-    ; Display player's turn
-    DISPLAY_TURN MACRO
-        LINE_BREAK
-        
-        PRINTS msg_turn
-        
-        MOV SI, turn
-        PRINTS player_name[SI]
-        
-        PRINTC '!'
-        
-        LINE_BREAK
-    DISPLAT_TURN ENDM
-    
     ;;;;;;;;;;;;;;;;;;;;;
     ; Macros - Piece
     ;;;;;;;;;;;;;;;;;;;;;
@@ -141,9 +128,14 @@
         
         ;CALL DISPLAY_BOARD
         
-        DISPLAY_TURN
+        CALL DISPLAY_TURN
+         
+        ;PRINTS prompt_selection
+        ;CALL TAKE_INPUT
+
+        UPDATE_GAME_STAT
         
-        CALL TAKE_SELECTION_INPUT
+        CALL DISPLAY_TURN
         
         ; Terminate program execution
         MOV AH, 4CH
@@ -327,15 +319,35 @@
             RET
     TAKE_INPUT ENDP
     
-    ; Take selection input
-    TAKE_SELECTION_INPUT PROC
-        ; Display message
-        PRINTS prompt_selection
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Players - Procedures     
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    ; Display player turn
+    DISPLAY_TURN PROC
+        LINE_BREAK
         
-        ; Take input
-        CALL TAKE_INPUT
+        ; Display message
+        PRINTS msg_turn
+        
+        ; Check turn
+        CMP turn, 0
+        JE DT_WHITE
+        
+        ; Black turn
+        PRINTS player_black
+        JMP DT_FLOW
+        
+        ; White turn
+        DT_WHITE:
+            PRINTS player_white
+        
+        ; Display '!' symbol and break line
+        DT_FLOW:
+            PRINTC '!'
+            LINE_BREAK
         
         RET
-    TAKE_SELECTION_INPUT ENDP
-
+    DISPLAY_TURN ENDP
+    
 END MAIN
