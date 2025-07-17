@@ -48,6 +48,8 @@
     input DB 2 DUP('$') ; Store player input
     index DW ?  ; Hold index of an array/string if registers are full
     
+    is_valid DB ?   ; Flag: Valid / In-valid input
+    
     ;;;;;;;;;;;;;;;
     ; Messages     
     ;;;;;;;;;;;;;;;
@@ -55,6 +57,9 @@
     ; Prompt
     prompt_selection DB 'Select a piece position: $'
     prompt_destination DB 'Select cell to move piece: $'
+    
+    ; Error
+    error_input DB 'Invalid Input!!$'
     
     ; Misc
     msg_loading DB 'Loading! Please wait...$'
@@ -128,18 +133,29 @@
         
         ;CALL DISPLAY_BOARD
         
-        CALL DISPLAY_TURN
+        ;CALL DISPLAY_TURN
          
         ;PRINTS prompt_selection
-        ;CALL TAKE_INPUT
+        CALL TAKE_INPUT
 
-        UPDATE_GAME_STAT
+        ;UPDATE_GAME_STAT
         
-        CALL DISPLAY_TURN
+        ;CALL DISPLAY_TURN
+        
+        CALL CHECK_INPUT_VALIDITY
+        LINE_BREAK
+        
+        CMP is_valid, 0
+        JE NOT_VALID
+        JMP EXIT
+        
+        NOT_VALID:
+            PRINTS error_input
         
         ; Terminate program execution
-        MOV AH, 4CH
-        INT 21H
+        EXIT:
+            MOV AH, 4CH
+            INT 21H
     MAIN ENDP
     
     ;;;;;;;;;;;;;;;;;;;;;;;
@@ -318,6 +334,41 @@
         TI_RET:
             RET
     TAKE_INPUT ENDP
+    
+    ; Check validity of the input
+    CHECK_INPUT_VALIDITY PROC
+        ; Initialize the flag
+        MOV is_valid, 0
+        
+        ; Check Column - label
+        CMP input[0], 'a'
+        JGE CIV_ALPHA
+        JL CIV_RET  ; If input[0] < 'a'
+        
+        ; Check Row - label
+        CMP input[1], '1'
+        JGE CIV_NUM
+        JMP CIV_RET ; If input[1] < '1'
+        
+        ; Finalize row
+        CIV_NUM:
+            CMP input[1], '8'
+            JLE CIV_VALID
+            JMP CIV_RET ; Not valid
+        
+        ; Finalize column
+        CIV_ALPHA:
+            CMP input[0], 'h'
+            JLE CIV_VALID
+            JMP CIV_RET ; Not valid
+        
+        ; If valid
+        CIV_VALID:
+            MOV is_valid, 1
+        
+        CIV_RET:
+            RET
+    CHECK_INPUT_VALIDITY ENDP
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Players - Procedures     
