@@ -14,7 +14,7 @@
     labels_alpha DB 'abcdefgh$'
     labels_num DB '12345678$'
     
-    ; Positions
+    ; Positions (R, C)
     position DB ?, ?        ; Current (selected) piece position
     destination DB ?, ?     ; Current (selected) piece destination
     resultant DB ?, ?       ; Resultant position derived on basis of current position and destination
@@ -124,33 +124,43 @@
         MOV DS, AX
         
         ; Testing
-        ;PRINTS msg_loading
         
-        ;CALL CLEAN_BOARD
-        ;CALL PLACE_PIECES_INIT
+        PRINTS msg_loading
         
-        ;CLRSCR
+        CALL CLEAN_BOARD
+        CALL PLACE_PIECES_INIT
         
-        ;CALL DISPLAY_BOARD
+        CLRSCR
         
-        ;CALL DISPLAY_TURN
+        CALL DISPLAY_BOARD
+        
+        CALL DISPLAY_TURN
          
-        ;PRINTS prompt_selection
+        PRINTS prompt_selection
         CALL TAKE_INPUT
 
         ;UPDATE_GAME_STAT
         
         ;CALL DISPLAY_TURN
         
-        CALL CHECK_INPUT_VALIDITY
-        LINE_BREAK
+        ;CALL CHECK_INPUT_VALIDITY
+        LINE_BREAK               
         
-        CMP is_valid, 0
-        JE NOT_VALID
-        JMP EXIT
+        CALL PARSE_INPUT_TO_RC  ; Parse the input -> (R, C)
+        MOV position[0], AH
+        MOV position[1], AL
         
-        NOT_VALID:
-            PRINTS error_input
+        MOV AH, 02H
+        MOV DL, position[0]
+        ADD DL, '0'
+        INT 21H
+        
+        PRINTC ' '
+        
+        MOV AH, 02H
+        MOV DL, position[1]
+        ADD DL, '0'
+        INT 21H
         
         ; Terminate program execution
         EXIT:
@@ -358,6 +368,19 @@
         CIV_RET:
             RET
     CHECK_INPUT_VALIDITY ENDP
+    
+    ; Parse input to row (AH) / column (AL) format
+    PARSE_INPUT_TO_RC PROC
+        ; Move
+        MOV AH, input[1]    ; ROW
+        MOV AL, input[0]    ; COLUMN
+        
+        ; Calculation
+        SUB AH, '1'
+        SUB AL, 'a'
+        
+        RET
+    PARSE_INPUT_TO_RC ENDP
 
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
