@@ -10,9 +10,10 @@
     ;;;;;;;;;;;;;;;;;
     
     ; Game Board
-    board DB 64 DUP('$')
-    labels_alpha DB 'abcdefgh$'
-    labels_num DB '12345678$'
+    board DB 64 DUP('$')        ; Board Array
+    labels_alpha DB 'abcdefgh$' ; Labels to represent columns
+    labels_num DB '12345678$'   ; Labels to represent rows
+    index DW ?                  ; Index of the specific position on board
     
     ; Positions (R, C)
     position DB ?, ?        ; Current (selected) piece position
@@ -46,9 +47,8 @@
     
     ; Misc
     input DB 2 DUP('$') ; Store player input
-    index DW ?  ; Hold index of an array/string if registers are full
-    
-    is_valid DB ?   ; Flag: Valid / In-valid input
+    is_valid DB ?       ; Flag: Valid / In-valid input
+    value DB ?          ; Store some value when need
     
     ;;;;;;;;;;;;;;;
     ; Messages     
@@ -150,16 +150,11 @@
         MOV position[0], AH
         MOV position[1], AL
         
-        MOV AH, 02H
-        MOV DL, position[0]
-        ADD DL, '0'
-        INT 21H
-        
-        PRINTC ' '
+        CALL CONVERT_POSITION_INTO_INDEX
         
         MOV AH, 02H
-        MOV DL, position[1]
-        ADD DL, '0'
+        MOV DX, index
+        ;ADD DX, '0'
         INT 21H
         
         ; Terminate program execution
@@ -381,6 +376,23 @@
         
         RET
     PARSE_INPUT_TO_RC ENDP
+    
+    ; Convert position (R, C) into index for board array (64-size)
+    ; Formula: index = R (AH) * 8 + C (AL)
+    CONVERT_POSITION_INTO_INDEX PROC
+        MOV SI, AX        ; Move (row, col) into SI for processing
+        MOV BL, 8         ; Multiplier
+
+        MOV AL, AH        ; Move row to AL for multiplication
+        MUL BL            ; AX = AL * 8 ? AX = row * 8
+
+        ADD AX, SI        ; AL = row*8 + col
+
+        
+        MOV index, AX
+        
+        RET
+    CONVERT_POSITION_INTO_INDEX ENDP
 
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
