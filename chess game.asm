@@ -337,38 +337,28 @@
     
     ; Check validity of the input
     CHECK_INPUT_VALIDITY PROC
-        ; Initialize the flag
+        ; Assume invalid by default
         MOV is_valid, 0
-        
-        ; Check Column - label
+
+        ; Check column: a-h
         CMP input[0], 'a'
-        JGE CIV_ALPHA
-        JL CIV_RET  ; If input[0] < 'a'
-        
-        ; Check Row - label
+        JL CIV_RET          ; < a (Invalid)
+        CMP input[0], 'h'
+        JG CIV_RET          ; > h (Invalid)
+
+        ; Check row: 1-8
         CMP input[1], '1'
-        JGE CIV_NUM
-        JMP CIV_RET ; If input[1] < '1'
-        
-        ; Finalize row
-        CIV_NUM:
-            CMP input[1], '8'
-            JLE CIV_VALID
-            JMP CIV_RET ; Not valid
-        
-        ; Finalize column
-        CIV_ALPHA:
-            CMP input[0], 'h'
-            JLE CIV_VALID
-            JMP CIV_RET ; Not valid
-        
-        ; If valid
-        CIV_VALID:
-            MOV is_valid, 1
-        
+        JL CIV_RET          ; < 1 (Invalid)
+        CMP input[1], '8'
+        JG CIV_RET          ; > 8 (Invalid)
+
+        ; Both valid
+        MOV is_valid, 1
+
         CIV_RET:
             RET
     CHECK_INPUT_VALIDITY ENDP
+
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Players - Procedures     
