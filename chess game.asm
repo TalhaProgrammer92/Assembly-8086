@@ -125,12 +125,12 @@
         
         ; Testing
         
-        PRINTS msg_loading
+        ;PRINTS msg_loading
         
-        CALL CLEAN_BOARD
-        CALL PLACE_PIECES_INIT
+        ;CALL CLEAN_BOARD
+        ;CALL PLACE_PIECES_INIT
         
-        CLRSCR
+        ;CLRSCR
         
         ;CALL DISPLAY_BOARD
         
@@ -154,16 +154,23 @@
         MOV AL, 1   ; COLUMN
         CALL CONVERT_POSITION_INTO_INDEX
         
-        MOV AH, 02H
+        MOV AH, 02H     ; Print index
         MOV DX, index
         ;ADD DX, '0'
         INT 21H
         
         LINE_BREAK
         
+        MOV AH, 02H     ; Print turn value
+        MOV DX, turn
+        ADD DX, '0'
+        INT 21H
+        
+        LINE_BREAK
+        
         CALL IS_SELECTED_PIECE_VALID
         
-        MOV AH, 02H
+        MOV AH, 02H     ; Print is_valid value
         MOV DL, is_valid
         ADD DL, '0'
         INT 21H
@@ -330,8 +337,15 @@
         ; Get piece location
         MOV SI, index
         
+        ; Print the piece - debugging
+        MOV AH, 02H
+        MOV DL, board[SI]
+        INT 21H
+        LINE_BREAK
+        
         ; Check if selected cell is empty
-        CMP board[SI], '.'
+        MOV AL, board[SI]
+        CMP AL, '.'
         JE ISPV_RET
         
         ; Check for white
@@ -339,25 +353,24 @@
         JE ISPV_WHITE
         
         ; Check for black
-        CMP turn, 1
-        JE ISPV_BLACK
+        JMP ISPV_BLACK
         
         ; White piece check
         ISPV_WHITE:
-            CMP board[SI], 'a'
+            CMP AL, 'a'
             JL ISPV_RET
             
-            CMP board[SI], 'z'
+            CMP AL, 'z'
             JG ISPV_RET
             
             JMP ISPV_VALID
         
         ; Black piece check
         ISPV_BLACK:
-            CMP board[SI], 'A'
+            CMP AL, 'A'
             JL ISPV_RET
             
-            CMP board[SI], 'Z'
+            CMP AL, 'Z'
             JG ISPV_RET
         
         ; If selected piece is valid
