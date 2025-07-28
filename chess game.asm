@@ -22,8 +22,8 @@
     
     ; Players - P1, P2
     player_score DB 0, 0
-    player_white DB 'White$'
-    player_black DB 'Black$'
+    player_white DB 'White$'    ; P1
+    player_black DB 'Black$'    ; P2
     
     ; In-game flags - 0: False | 1: True - P1, P2
     checkmate_flag DB 0, 0  ; Is checkmate
@@ -47,7 +47,7 @@
     
     ; Misc
     input DB 2 DUP('$') ; Store player input
-    is_valid DB ?       ; Flag: Valid / In-valid input
+    is_valid DB ?       ; Flag: Valid / In-valid conditions
     value DB ?          ; Store some value when need
     
     ;;;;;;;;;;;;;;;
@@ -132,29 +132,40 @@
         
         CLRSCR
         
-        CALL DISPLAY_BOARD
+        ;CALL DISPLAY_BOARD
         
         CALL DISPLAY_TURN
          
-        PRINTS prompt_selection
-        CALL TAKE_INPUT
+        ;PRINTS prompt_selection
+        ;CALL TAKE_INPUT
 
         ;UPDATE_GAME_STAT
         
         ;CALL DISPLAY_TURN
         
         ;CALL CHECK_INPUT_VALIDITY
-        LINE_BREAK               
+        ;LINE_BREAK               
         
-        CALL PARSE_INPUT_TO_RC  ; Parse the input -> (R, C)
-        MOV position[0], AH
-        MOV position[1], AL
+        ;CALL PARSE_INPUT_TO_RC  ; Parse the input -> (R, C)
+        ;MOV position[0], AH
+        ;MOV position[1], AL
         
+        MOV AH, 6   ; ROW
+        MOV AL, 1   ; COLUMN
         CALL CONVERT_POSITION_INTO_INDEX
         
         MOV AH, 02H
         MOV DX, index
         ;ADD DX, '0'
+        INT 21H
+        
+        LINE_BREAK
+        
+        CALL IS_SELECTED_PIECE_VALID
+        
+        MOV AH, 02H
+        MOV DL, is_valid
+        ADD DL, '0'
         INT 21H
         
         ; Terminate program execution
@@ -311,6 +322,51 @@
         
         RET
     PLACE_PIECES_INIT ENDP
+    
+    ; Check if selected piece is valid or not - Contains a bug
+    IS_SELECTED_PIECE_VALID PROC
+        MOV is_valid, 0 ; Default flag to false
+        
+        ; Get piece location
+        MOV SI, index
+        
+        ; Check if selected cell is empty
+        CMP board[SI], '.'
+        JE ISPV_RET
+        
+        ; Check for white
+        CMP turn, 0
+        JE ISPV_WHITE
+        
+        ; Check for black
+        CMP turn, 1
+        JE ISPV_BLACK
+        
+        ; White piece check
+        ISPV_WHITE:
+            CMP board[SI], 'a'
+            JL ISPV_RET
+            
+            CMP board[SI], 'z'
+            JG ISPV_RET
+            
+            JMP ISPV_VALID
+        
+        ; Black piece check
+        ISPV_BLACK:
+            CMP board[SI], 'A'
+            JL ISPV_RET
+            
+            CMP board[SI], 'Z'
+            JG ISPV_RET
+        
+        ; If selected piece is valid
+        ISPV_VALID:
+            MOV is_valid, 1
+        
+        ISPV_RET:
+            RET
+    IS_SELECTED_PIECE_VALID ENDP
     
     ;;;;;;;;;;;;;;;;;;;;;;;;
     ; Input Procedures
