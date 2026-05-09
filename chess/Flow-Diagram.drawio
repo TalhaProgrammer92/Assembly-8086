@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36">
   <diagram name="Page-1" id="0BoMSLXmPYiMV5TSpvQ6">
-    <mxGraphModel dx="754" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="912" dy="726" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -10,8 +10,8 @@
         <mxCell id="Cb8gBrfabVf7jFWWRIzj-10" edge="1" parent="1" source="Cb8gBrfabVf7jFWWRIzj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="Cb8gBrfabVf7jFWWRIzj-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="Cb8gBrfabVf7jFWWRIzj-2" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Start_Game" vertex="1">
-          <mxGeometry height="80" width="80" x="160" y="120" as="geometry" />
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-2" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Start_Program" vertex="1">
+          <mxGeometry height="90" width="90" x="150" y="120" as="geometry" />
         </mxCell>
         <mxCell id="Cb8gBrfabVf7jFWWRIzj-3" edge="1" parent="1" source="Cb8gBrfabVf7jFWWRIzj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.55;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;" target="Cb8gBrfabVf7jFWWRIzj-1">
           <mxGeometry relative="1" as="geometry">
@@ -65,6 +65,36 @@
         </mxCell>
         <mxCell id="Cb8gBrfabVf7jFWWRIzj-19" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to start the game" vertex="1">
           <mxGeometry height="60" width="120" x="480" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-27" edge="1" parent="1" source="Cb8gBrfabVf7jFWWRIzj-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="Cb8gBrfabVf7jFWWRIzj-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="195" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-22" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Team_Selection" vertex="1">
+          <mxGeometry height="90" width="90" x="240" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-28" edge="1" parent="1" source="Cb8gBrfabVf7jFWWRIzj-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="Cb8gBrfabVf7jFWWRIzj-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="195" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-24" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Initialize_Board" vertex="1">
+          <mxGeometry height="90" width="90" x="240" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-29" edge="1" parent="1" source="Cb8gBrfabVf7jFWWRIzj-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="Cb8gBrfabVf7jFWWRIzj-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="195" y="520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-26" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Start_Game" vertex="1">
+          <mxGeometry height="80" width="80" x="240" y="480" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
