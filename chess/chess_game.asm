@@ -60,6 +60,9 @@
     board DB 64 DUP('$')
     
     selected_piece DB ?
+    board_index DB ?
+    
+    ; [0] - Row | [1] - Column
     current_position DB ?, ?
     target_position DB ?, ?
     absolute_position DB ?, ?
@@ -96,8 +99,8 @@
     
     ; <----- To do a line break -----> ;
     LINE_BREAK MACRO
-        PRINTC 0Ah
         PRINTC 0Dh
+        PRINTC 0Ah
     LINE_BREAK ENDM
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -106,7 +109,7 @@
 
 .CODE
     ; <----- Program's entry point -----> ;
-    MAIN PROC FAR
+    MAIN PROC
         ; Moving data from data source to the data segment register
         MOV AX, @DATA
         MOV DS, AX
