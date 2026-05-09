@@ -4,6 +4,19 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-1" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" value="MAIN" vertex="1">
+          <mxGeometry height="80" width="120" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-2" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Start_Game" vertex="1">
+          <mxGeometry height="80" width="80" x="160" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Cb8gBrfabVf7jFWWRIzj-3" edge="1" parent="1" source="Cb8gBrfabVf7jFWWRIzj-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.55;entryY=0.95;entryDx=0;entryDy=0;entryPerimeter=0;" target="Cb8gBrfabVf7jFWWRIzj-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="106" y="160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
