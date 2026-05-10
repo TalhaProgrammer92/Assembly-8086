@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36">
   <diagram name="Page-1" id="0BoMSLXmPYiMV5TSpvQ6">
-    <mxGraphModel dx="1094" dy="871" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1287" dy="1025" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -121,10 +121,15 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="vbCOmpHTg_3EcuGmqhtO-17" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="Cb8gBrfabVf7jFWWRIzj-26">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="595" />
+              <mxPoint x="340" y="520" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="vbCOmpHTg_3EcuGmqhtO-12" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Actions" vertex="1">
-          <mxGeometry height="270" width="140" x="360" y="480" as="geometry" />
+          <mxGeometry height="230" width="140" x="360" y="480" as="geometry" />
         </mxCell>
         <mxCell id="vbCOmpHTg_3EcuGmqhtO-13" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Display Board" vertex="1">
           <mxGeometry height="30" width="140" y="30" as="geometry" />
@@ -135,25 +140,103 @@
         <mxCell id="vbCOmpHTg_3EcuGmqhtO-15" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Select Piece and target position" vertex="1">
           <mxGeometry height="40" width="140" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="vbCOmpHTg_3EcuGmqhtO-16" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Select Piece and target position" vertex="1">
-          <mxGeometry height="40" width="140" y="130" as="geometry" />
-        </mxCell>
         <mxCell id="vbCOmpHTg_3EcuGmqhtO-19" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Check the path" vertex="1">
-          <mxGeometry height="30" width="140" y="170" as="geometry" />
+          <mxGeometry height="30" width="140" y="130" as="geometry" />
         </mxCell>
         <mxCell id="vbCOmpHTg_3EcuGmqhtO-20" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Move piece if path is clear" vertex="1">
-          <mxGeometry height="40" width="140" y="200" as="geometry" />
+          <mxGeometry height="40" width="140" y="160" as="geometry" />
         </mxCell>
-        <mxCell id="vbCOmpHTg_3EcuGmqhtO-22" edge="1" parent="vbCOmpHTg_3EcuGmqhtO-12" source="vbCOmpHTg_3EcuGmqhtO-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-13" value="LOOP">
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-22" edge="1" parent="vbCOmpHTg_3EcuGmqhtO-12" source="vbCOmpHTg_3EcuGmqhtO-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-13" value="LOOP">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="160" y="255" />
-              <mxPoint x="160" y="45" />
+              <mxPoint x="70" y="255" />
+              <mxPoint x="-10" y="255" />
+              <mxPoint x="-10" y="45" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="vbCOmpHTg_3EcuGmqhtO-21" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Update game state" vertex="1">
-          <mxGeometry height="30" width="140" y="240" as="geometry" />
+          <mxGeometry height="30" width="140" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-24" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-23" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to clear the board" vertex="1">
+          <mxGeometry height="60" width="120" x="480" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-26" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-25" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to place all pieces" vertex="1">
+          <mxGeometry height="60" width="120" x="550" y="405" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-28" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-27" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to display the board" vertex="1">
+          <mxGeometry height="60" width="120" x="550" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-30" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-29" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to take input and validate it" vertex="1">
+          <mxGeometry height="60" width="120" x="550" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-32" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="650" />
+              <mxPoint x="540" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-31" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to select the piece and lock target" vertex="1">
+          <mxGeometry height="60" width="120" x="550" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-34" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="725" />
+              <mxPoint x="530" y="625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-33" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to check the path and also check for move validation" vertex="1">
+          <mxGeometry height="70" width="120" x="550" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-36" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="800" />
+              <mxPoint x="520" y="660" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-35" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A macro to move the piece at target cell" vertex="1">
+          <mxGeometry height="60" width="120" x="550" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-38" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="vbCOmpHTg_3EcuGmqhtO-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="780" />
+              <mxPoint x="510" y="695" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-37" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A macro to update turn" vertex="1">
+          <mxGeometry height="40" width="90" x="380" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-40" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="310" y="750" />
+              <mxPoint x="510" y="750" />
+              <mxPoint x="510" y="695" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-39" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to check current game state and update it" vertex="1">
+          <mxGeometry height="60" width="120" x="250" y="760" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
