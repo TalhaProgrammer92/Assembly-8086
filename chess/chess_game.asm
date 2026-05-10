@@ -102,6 +102,13 @@
         PRINTC 0Dh
         PRINTC 0Ah
     LINE_BREAK ENDM
+    
+    ; <----- To clear the terminal -----> ;
+    CLRSCR MACRO
+        MOV AH, 00h
+        MOV AL, 03h
+        INT 10h
+    CLRSCR ENDM
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                               CODE SOURCE                                    ;
@@ -110,7 +117,7 @@
 .CODE
     ; <----- Program's entry point -----> ;
     MAIN PROC
-        ; Moving data from data source to the data segment register
+        ; Moving data to the data segment register
         MOV AX, @DATA
         MOV DS, AX
         
