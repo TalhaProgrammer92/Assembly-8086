@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36">
   <diagram name="Page-1" id="0BoMSLXmPYiMV5TSpvQ6">
-    <mxGraphModel dx="912" dy="726" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1094" dy="871" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -95,6 +95,65 @@
         </mxCell>
         <mxCell id="Cb8gBrfabVf7jFWWRIzj-26" parent="1" style="whiteSpace=wrap;html=1;aspect=fixed;" value="Start_Game" vertex="1">
           <mxGeometry height="80" width="80" x="240" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-5" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="Cb8gBrfabVf7jFWWRIzj-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-1" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Teams" vertex="1">
+          <mxGeometry height="90" width="80" x="360" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-2" parent="vbCOmpHTg_3EcuGmqhtO-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Black" vertex="1">
+          <mxGeometry height="30" width="80" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-3" parent="vbCOmpHTg_3EcuGmqhtO-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="White" vertex="1">
+          <mxGeometry height="30" width="80" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-6" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Actions" vertex="1">
+          <mxGeometry height="90" width="105" x="355" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-7" parent="vbCOmpHTg_3EcuGmqhtO-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Clear the board" vertex="1">
+          <mxGeometry height="30" width="105" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-8" parent="vbCOmpHTg_3EcuGmqhtO-6" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Place pieces" vertex="1">
+          <mxGeometry height="30" width="105" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-10" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="Cb8gBrfabVf7jFWWRIzj-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-17" edge="1" parent="1" source="vbCOmpHTg_3EcuGmqhtO-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="Cb8gBrfabVf7jFWWRIzj-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-12" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Actions" vertex="1">
+          <mxGeometry height="270" width="140" x="360" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-13" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Display Board" vertex="1">
+          <mxGeometry height="30" width="140" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-14" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Take input from player" vertex="1">
+          <mxGeometry height="30" width="140" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-15" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Select Piece and target position" vertex="1">
+          <mxGeometry height="40" width="140" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-16" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Select Piece and target position" vertex="1">
+          <mxGeometry height="40" width="140" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-19" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Check the path" vertex="1">
+          <mxGeometry height="30" width="140" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-20" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Move piece if path is clear" vertex="1">
+          <mxGeometry height="40" width="140" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-22" edge="1" parent="vbCOmpHTg_3EcuGmqhtO-12" source="vbCOmpHTg_3EcuGmqhtO-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="vbCOmpHTg_3EcuGmqhtO-13" value="LOOP">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="255" />
+              <mxPoint x="160" y="45" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vbCOmpHTg_3EcuGmqhtO-21" parent="vbCOmpHTg_3EcuGmqhtO-12" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Update game state" vertex="1">
+          <mxGeometry height="30" width="140" y="240" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
