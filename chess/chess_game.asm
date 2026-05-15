@@ -56,6 +56,11 @@
     continue_msg DB 'Press any key to continue...$'
     turn_msg DB 'The turn of Player $'
     
+    loading_msg DB 'Loading...$'
+    
+    clrboard_msg DB 'Clearing the board...$'
+    plcboard_msg DB 'Placing pieces on the board...$'
+    
     ; <----- Board -----> ;
     board DB 64 DUP('$')
     
@@ -111,6 +116,15 @@
         INT 21h
     PRINTS ENDM
     
+    ; <----- To print a string with line break -----> ;
+    PRINTSL MACRO str
+        MOV AH, 09h
+        LEA DX, str
+        INT 21h
+        
+        LINE_BREAK
+    PRINTSL ENDM
+    
     ; <----- To do a line break -----> ;
     LINE_BREAK MACRO
         PRINTC 0Dh
@@ -136,8 +150,10 @@
         MOV DS, AX
         
         ; Testing...
+        PRINTSL loading_msg
         CALL CLEAR_BOARD
         CALL PLACE_PIECES
+        CALL DISPLAY_BOARD
         
         ; Terminating the program
         MOV AH, 4ch
@@ -150,6 +166,8 @@
     
     ; <----- Clear the game board -----> ;
     CLEAR_BOARD PROC
+        PRINTSL clrboard_msg
+        
         MOV SI, 0
         CB_LOOP:
             MOV board[SI], '-'
@@ -162,6 +180,8 @@
     
     ; <----- Place all pieces on the board -----> ;
     PLACE_PIECES PROC
+        PRINTSL plcboard_msg
+        
         ;;;;;;;;;; WHITE PIECES ;;;;;;;;;;
         
         ; Pawns
@@ -170,6 +190,7 @@
         MOV AL, white_pawn
         PPWP_LOOP:
             MOV board[SI], AL
+
             INC SI
             LOOP PPWP_LOOP 
         
@@ -227,10 +248,39 @@
         MOV board[59], AL
         
         ; King
-        MOV AL, white_king
+        MOV AL, black_king
         MOV board[60], AL
         
         RET
     PLACE_PIECES ENDP
+    
+    DISPLAY_BOARD PROC
+        CLRSCR  ; Clear the terminal screen
+        
+        MOV SI, 0
+        DB_LOOP:
+            PRINTC board[SI]
+            PRINTC ' '
+            
+            INC SI
+            
+            ; Check for line break
+            MOV AX, SI
+            MOV BH, 0   ; To make division safe
+            MOV BL, 8
+            DIV BL
+            CMP AH, 0
+            JE DBL_LINE_BREAK
+            JMP DBL_FLOW
+          
+          DBL_LINE_BREAK:
+            LINE_BREAK
+            
+          DBL_FLOW:
+            CMP SI, 64
+            JB DB_LOOP
+    
+        RET
+    DISPLAY_BOARD ENDP
 
 END MAIN
