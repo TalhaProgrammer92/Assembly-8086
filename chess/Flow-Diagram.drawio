@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36">
   <diagram name="Page-1" id="0BoMSLXmPYiMV5TSpvQ6">
-    <mxGraphModel dx="754" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="253" dy="156" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -258,6 +258,9 @@
         </mxCell>
         <mxCell id="vbCOmpHTg_3EcuGmqhtO-44" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="A procedure to check for winner / draw and announce the result" vertex="1">
           <mxGeometry height="90" width="120" x="80" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="bl-Rt4aU4G4TKe8jPpuh-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="✔️" vertex="1">
+          <mxGeometry height="10" width="10" x="605" y="170" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
