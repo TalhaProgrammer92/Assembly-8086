@@ -61,6 +61,14 @@
     clrboard_msg DB 'Clearing the board...$'
     plcboard_msg DB 'Placing pieces on the board...$'
     
+    name_prompt DB 'Enter name of the player: $'
+    
+    ; <----- Players -----> ;
+    player1_name DB 16 DUP('$')
+    player2_name DB 16 DUP('$')
+    
+    chr_input DB ?  ; To store input of user
+    
     ; <----- Board -----> ;
     board DB 64 DUP('$')
     
@@ -125,6 +133,13 @@
         LINE_BREAK
     PRINTSL ENDM
     
+    ; <----- Take character input -----> ;
+    INPUT MACRO
+        MOV AH, 01h
+        INT 21h
+        MOV chr_input, AL
+    INPUT ENDM
+    
     ; <----- To do a line break -----> ;
     LINE_BREAK MACRO
         PRINTC 0Dh
@@ -137,6 +152,11 @@
         MOV AL, 03h
         INT 10h
     CLRSCR ENDM
+    
+    ; <----- Update Turn -----> ;
+    UPDATE_TURN MACRO
+        XOR turn, 1
+    UPDATE_TURN ENDM
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                               CODE SOURCE                                    ;
@@ -149,11 +169,18 @@
         MOV AX, @DATA
         MOV DS, AX
         
-        ; Testing...
-        PRINTSL loading_msg
-        CALL CLEAR_BOARD
-        CALL PLACE_PIECES
-        CALL DISPLAY_BOARD
+        ; Testing - Board
+        ;PRINTSL loading_msg
+        ;CALL CLEAR_BOARD
+        ;CALL PLACE_PIECES
+        ;CALL DISPLAY_BOARD
+        
+        ; Testing - Players' name input
+        CALL TAKE_NAME_INPUT
+        PRINTSL player1_name
+        
+        CALL TAKE_NAME_INPUT
+        PRINTSL player2_name
         
         ; Terminating the program
         MOV AH, 4ch
@@ -282,5 +309,55 @@
     
         RET
     DISPLAY_BOARD ENDP
+    
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;                           PLAYER PROCEDURES                              ;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    
+    ; Take inpt for name
+    TAKE_NAME_INPUT PROC
+        PRINTS name_prompt
+        
+        MOV SI, 0
+        TNI_LOOP:
+            INPUT
+            
+            ; Check for 'Enter' key
+            CMP chr_input, 13
+            JE TNI_END
+            
+            CALL UPDATE_PLAYER_NAME
+            INC SI
+            CMP SI, 16
+            JB TNI_LOOP
+        
+        TNI_END:
+            MOV AL, '$'
+            MOV chr_input, AL
+            CALL UPDATE_PLAYER_NAME
+        
+        UPDATE_TURN
+        LINE_BREAK
+        
+        RET
+    TAKE_NAME_INPUT ENDP
+    
+    ; Store input character to player's name |> SI - Index | chr_input - Character to be inserted
+    UPDATE_PLAYER_NAME PROC
+        MOV AL, chr_input
+        CMP turn, 1
+        JE UPL_2
+        
+        ; Player 1
+        MOV player1_name[SI], AL
+        JMP UPN_RET
+        
+        ; Player 2
+        UPL_2:
+            MOV player2_name[SI], AL
+        
+        UPN_RET:
+            RET
+    UPDATE_PLAYER_NAME ENDP
 
 END MAIN
