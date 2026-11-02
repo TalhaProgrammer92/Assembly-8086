@@ -21,6 +21,9 @@ INCLUDE 'io.inc'
     msg_about DB 'Created by Talha Ahmad on Thursday 29th October, 2026.$'
     msg_hold DB 'Press any key to continue...$'
     msg_replay DB 'Do you want to play again (Y/N)? $'
+    msg_ply_sym_input DB 'Enter symbol for the player: $'
+    
+    alert_sym_already_taken DB 'The symbol you have selected is already taken!$'
     
     ;;;;;;;;;;;;;;;;;;
     ; Game Variables ;
@@ -35,6 +38,9 @@ INCLUDE 'io.inc'
     ; Flags | 0-False, 1-True
     game_over DB ?
     is_bard_filled DB ?
+    
+    ; Storage
+    var DB ?
     
     ;;;;;;;;;;
     ; Macros ;
@@ -61,10 +67,11 @@ INCLUDE 'io.inc'
         MOV AX, @DATA
         MOV DS, AX
         
-        WELCOME
+        ;WELCOME
+        ;CALL CLEAR_BOARD
+        ;CALL DISPLAY_BOARD
         
-        CALL CLEAR_BOARD
-        CALL DISPLAY_BOARD
+        CALL TAKE_PLAYERS_SYMBOL
         
         MOV AH, 4ch
         INT 21h
@@ -116,5 +123,43 @@ INCLUDE 'io.inc'
         
         RET
     DISPLAY_BOARD ENDP
+    
+    ;;;;;;;;;;;;;;;;;;;;;;;
+    ; Procedures - Player ;
+    ;;;;;;;;;;;;;;;;;;;;;;;
+    
+    ; Take players' input for symbols
+    TAKE_PLAYERS_SYMBOL PROC
+        MOV SI, 0
+        TPS_LOOP:
+            LINE_BREAK
+            PRINTS msg_ply_sym_input
+            INPUT
+            MOV var, AL
+            
+            CMP SI, 0
+            JE TPSL_FLOW
+            
+            ; Comparison
+            MOV AL, players[0]
+            CMP AL, var
+            JNE TPSL_FLOW
+            
+            LINE_BREAK
+            PRINTS alert_sym_already_taken
+            JMP TPS_LOOP
+            
+            ; Assignment
+            TPSL_FLOW:
+                MOV AL, var
+                MOV players[SI], AL
+                INC SI
+            
+            ; Control Flow
+            CMP SI, 2
+            JB TPS_LOOP
+        
+        RET
+    TAKE_PLAYERS_SYMBOL ENDP
     
 END MAIN
